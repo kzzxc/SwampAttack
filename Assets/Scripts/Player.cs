@@ -1,15 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Net;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Animator))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private int _health;
     [SerializeField] private List<Weapon> _weapons;
     [SerializeField] private Transform _shootPoint;
+    [SerializeField] private Camera _camera;
 
     private Weapon _currentWeapon;
     private int _currentWeaponNumber = 0;
@@ -27,14 +27,6 @@ public class Player : MonoBehaviour
         _currentWeapon = _weapons[0];
         _currentHealth = _health;
         _animator = GetComponent<Animator>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _currentWeapon.Shoot(_shootPoint);
-        }
     }
 
     public void ApplyDamage(int damage)
@@ -84,5 +76,10 @@ public class Player : MonoBehaviour
     private void ChangeWeapon(Weapon weapon)
     {
         _currentWeapon = weapon;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        _currentWeapon.Shoot(_shootPoint);
     }
 }

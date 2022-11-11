@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-
 public class WeaponView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _label;
